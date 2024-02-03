@@ -4,7 +4,6 @@
 
 import collections
 import itertools
-import glob
 import logging
 import os
 import re
@@ -14,19 +13,12 @@ import textwrap
 import zipfile
 from xml.etree import ElementTree
 
-import subliminal  # fades
-from subliminal.cli import Language
-
 logger = logging.getLogger()
 _h = logging.StreamHandler()
 _h.setLevel(logging.DEBUG)
 _h.setFormatter(logging.Formatter("%(asctime)s  %(message)s"))
 logger.addHandler(_h)
 logger.setLevel(logging.INFO)
-
-# for subliminal to not dump zillion info
-subliminal_logger = logging.getLogger('subliminal')
-subliminal_logger.setLevel(1000)
 
 SubItem = collections.namedtuple("SubItem", "tfrom tto text")
 
@@ -797,43 +789,11 @@ def check(inpfile):
         logger.debug("Done")
 
 
-def download(*videopaths):
-    """Download subs for given videos."""
-    logger.info("Scanning %d videos", len(videopaths))
-    videos = []
-    videobases = []
-    for path in videopaths:
-        logger.debug("Scanning video %r", path)
-        videos.append(subliminal.scan_video(path))
-        videobases.append(path.rsplit('.', 1)[0])
-
-    subtitles = subliminal.download_best_subtitles(videos, {Language('spa')})
-
-    for video in videos:
-        sub = subtitles[video]
-        logger.info("Saving subtitle for video %s: %r", video, sub)
-        subliminal.save_subtitles(video, sub)
-
-    # check the saved subs
-    subpaths = []
-    for base in videobases:
-        print("====== base", base)
-        subpaths.extend(glob.glob(base[:30] + "*srt"))
-        print("====== subpaths", subpaths)
-    for subpath in subpaths:
-        check(subpath)
-
-    logger.debug("Done")
-
-
 def die(error=None):
     if error:
         print("ERROR:", error)
     print("""
 Usage: subtitles.py [-v|--verbose] cmd <options>
-
-    download [video1 [video2 [...]]
-      Download the sub for the given videos
 
     rescale_points subfile.srt id1 time1 id2 time2
       Rescale the subtitles using two points (id1 and id2) traslating
@@ -866,7 +826,7 @@ Usage: subtitles.py [-v|--verbose] cmd <options>
     exit()
 
 
-if __name__ == '__main__':
+def main():
     if "-v" in sys.argv:
         verbose = True
         sys.argv.remove("-v")
@@ -877,7 +837,6 @@ if __name__ == '__main__':
         verbose = False
     if verbose:
         logger.setLevel(logging.DEBUG)
-        subliminal_logger.setLevel(logging.INFO)
 
     if len(sys.argv) < 2:
         die()
@@ -912,91 +871,5 @@ if __name__ == '__main__':
         if len(params) != 2:
             die()
         shift(*params)
-    elif cmd == 'download':
-        if len(params) < 1:
-            die()
-        download(*params)
     else:
         die()
-    exit(0)
-else:
-    # these tests will be moved out in the future
-    import pytest
-
-
-def test_toomanylines_just_1():
-    """One line is fine."""
-    s1 = SubItem(tfrom=1, tto=2, text="foobar")
-    src_items = [s1]
-    new_items = _fix_toomanylines(src_items)
-    assert src_items == new_items
-
-
-def test_toomanylines_just_2():
-    """One line is fine."""
-    s1 = SubItem(tfrom=1, tto=2, text=textwrap.dedent("""\
-        foobar
-        otherline
-    """))
-    src_items = [s1]
-    new_items = _fix_toomanylines(src_items)
-    assert src_items == new_items
-
-
-def test_toomanylines_excess_3():
-    """Too many lines."""
-    s1 = SubItem(tfrom=1, tto=2, text=textwrap.dedent("""\
-        Some test in line 1,
-        then more stuff and
-        finally this here."""))
-    src_items = [s1]
-    new_items = _fix_toomanylines(src_items)
-    should_rewrapped = textwrap.dedent("""\
-        Some test in line 1, then more
-        stuff and finally this here.""")
-    assert new_items[0].text == should_rewrapped
-
-
-def test_toomanylines_excess_4():
-    """Too many lines."""
-    s1 = SubItem(tfrom=1, tto=2, text=textwrap.dedent("""\
-        Some test in line
-        and then more
-        stuff, eventually
-        other thing here."""))
-    src_items = [s1]
-    new_items = _fix_toomanylines(src_items)
-    should_rewrapped = textwrap.dedent("""\
-        Some test in line and then more
-        stuff, eventually other thing here.""")
-    assert new_items[0].text == should_rewrapped
-
-
-@pytest.mark.parametrize("dialog_symbol", ["*", "-", "♪"])
-def test_toomanylines_excess_dialog_1(dialog_symbol):
-    """Respect dialogs, case 1."""
-    s1 = SubItem(tfrom=1, tto=2, text=textwrap.dedent("""\
-        {0} Some test in line 1
-        {0} More stuff and
-        finally this here.""".format(dialog_symbol)))
-    src_items = [s1]
-    new_items = _fix_toomanylines(src_items)
-    should_rewrapped = textwrap.dedent("""\
-        {0} Some test in line 1
-        {0} More stuff and finally this here.""".format(dialog_symbol))
-    assert new_items[0].text == should_rewrapped
-
-
-@pytest.mark.parametrize("dialog_symbol", ["*", "-", "♪"])
-def test_toomanylines_excess_dialog_2(dialog_symbol):
-    """Respect dialogs, case 1."""
-    s1 = SubItem(tfrom=1, tto=2, text=textwrap.dedent("""\
-        {0} Some test in line 1
-        and more stuff
-        {0} finally this here""".format(dialog_symbol)))
-    src_items = [s1]
-    new_items = _fix_toomanylines(src_items)
-    should_rewrapped = textwrap.dedent("""\
-        {0} Some test in line 1 and more stuff
-        {0} finally this here""".format(dialog_symbol))
-    assert new_items[0].text == should_rewrapped
