@@ -1,2 +1,5 @@
 # subtitles
-Tool to handle and fix subtitles general issues
+
+Tool to handle and fix subtitles general issues.
+
+
