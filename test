@@ -1,1 +1,1 @@
-fades -d pytest -m pytest tests/
+fades -r requirements-dev.txt -m pytest tests/

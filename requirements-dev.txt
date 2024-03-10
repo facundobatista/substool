@@ -1,0 +1,6 @@
+-r requirements.txt
+
+pytest
+codespell
+flake8
+pydocstyle
