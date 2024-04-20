@@ -74,7 +74,7 @@ def _fix_times(subitems):
         if item.tfrom == item.tto:
             emit.verbose("Times: fixing sub {} (same times)".format(i))
         elif i < len(subitems) and item.tto > subitems[i].tfrom:
-            emit.verbose("Times: fixing cross timings between {} and {}".format(i, i + 1))
+            emit.verbose(f"Times: fixing cross timings between {i} and {i + 1}")
         else:
             newitems.append(item)
             continue
@@ -205,7 +205,7 @@ class CheckCommand(BaseCommand):
                 elif ext in ("srt", "ssa", "vtt", "tt", "sub", "xml"):
                     new_to_process.append(toproc)
                 else:
-                    emit.error(f"Ignoring filename: {str(toproc)!r}")
+                    emit.message(f"Ignoring filename: {str(toproc)!r}")
             to_process = new_to_process
             if not dirty:
                 break
@@ -242,8 +242,8 @@ class CheckCommand(BaseCommand):
             emit.verbose("Checking for spam...")
             for item in subitems[:]:
                 if any(x in item.text for x in SPAM_STRINGS):
-                    emit.verbose("Removing spam: %r", item.text)
+                    emit.verbose(f"Removing spam: {item.text!r}")
                     subitems.remove(item)
 
             save_srt(subitems, inpfile)
-            emit.message("Done")
+            emit.verbose("Done")

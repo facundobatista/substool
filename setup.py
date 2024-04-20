@@ -18,7 +18,7 @@ setup(
     author="Facundo Batista",
     author_email="facundo@taniquetil.com.ar",
     description="Tool to handle and fix subtitles general issues.",
-    long_description=open("README.rst", "rt", encoding="utf8").read(),
+    long_description=open("README.md", "rt", encoding="utf8").read(),
     url="https://github.com/facundobatista/subtitles",
     license="Apace-v2",
     packages=["subtitles"],
