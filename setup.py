@@ -31,6 +31,6 @@ setup(
     entry_points={
         "console_scripts": ["subtitles = subtitles.subtitles:main"],
     },
-    install_requires=[],
+    install_requires=["craft_cli"],
     python_requires=">=3",
 )
