@@ -171,6 +171,7 @@ class ShiftCommand(BaseCommand):
 
     def fill_parser(self, parser):
         """Add own parameters to the general parser."""
+        parser.add_argument("filepath", type=valid_filepath, help="The subtitle to process")
         parser.add_argument("delta", type=_friendly_float, help="Delta seconds to shift all times")
 
     def run(self, parsed_args):
