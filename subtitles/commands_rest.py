@@ -76,14 +76,14 @@ class RescalePointsCommand(BaseCommand):
         else:
             item1 = subitems[int(parsed_args.id1) - 1]
             emit.debug(
-                f"Found 1st item {parsed_args.id1:-4s} @ {time_stamp2sub(item1.tfrom):-4s}%, "
+                f"Found 1st item {parsed_args.id1} @ {time_stamp2sub(item1.tfrom)}, "
                 f"should be {time_stamp2sub(parsed_args.tstamp1)} ({item1.text!r})")
             real1 = item1.tfrom
             should1 = parsed_args.tstamp1
 
         item2 = subitems[int(parsed_args.id2) - 1]
         emit.debug(
-            f"Found 2nd item {parsed_args.id2:-4s} @ {time_stamp2sub(item2.tfrom):-4s}%, "
+            f"Found 2nd item {parsed_args.id2} @ {time_stamp2sub(item2.tfrom)}, "
             f"should be {time_stamp2sub(parsed_args.tstamp2)} ({item2.text!r})")
         real2 = item2.tfrom
 
