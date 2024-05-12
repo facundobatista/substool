@@ -13,7 +13,7 @@ VERSION = "1.0"
 
 
 setup(
-    name="subtitles",
+    name="substool",
     version=VERSION,
     author="Facundo Batista",
     author_email="facundo@taniquetil.com.ar",
@@ -29,7 +29,7 @@ setup(
         "Programming Language :: Python :: 3",
     ],
     entry_points={
-        "console_scripts": ["subtitles = subtitles.subtitles:main"],
+        "console_scripts": ["subtitles = subtitles.main:main"],
     },
     install_requires=["craft_cli"],
     python_requires=">=3",
