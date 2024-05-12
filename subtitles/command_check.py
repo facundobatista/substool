@@ -71,8 +71,8 @@ def _fix_times(subitems):
     newitems = []
     for i, item in enumerate(subitems, 1):
         # check if something needs to be fixed
-        if item.tfrom == item.tto:
-            emit.verbose("Times: fixing sub {} (same times)".format(i))
+        if item.tfrom >= item.tto:
+            emit.verbose(f"Times: fixing sub {i} (same or inverted times)")
         elif i < len(subitems) and item.tto > subitems[i].tfrom:
             emit.verbose(f"Times: fixing cross timings between {i} and {i + 1}")
         else:
