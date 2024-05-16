@@ -9,7 +9,7 @@
 from setuptools import setup
 
 
-VERSION = "2.0"
+VERSION = "2.1"
 
 
 setup(
