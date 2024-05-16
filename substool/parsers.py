@@ -1,6 +1,6 @@
 # Copyright 2014-2024 Facundo Batista
 # Licensed under the Apache v2 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """Subtitles parsers."""
 
@@ -9,7 +9,7 @@ from xml.etree import ElementTree
 
 from craft_cli import emit, CraftError
 
-from subtitles.helpers import time_sub2stamp, SubItem
+from substool.helpers import time_sub2stamp, SubItem
 
 
 # to clean some tags

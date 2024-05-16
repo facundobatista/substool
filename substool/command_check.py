@@ -1,6 +1,6 @@
 # Copyright 2014-2024 Facundo Batista
 # Licensed under the Apache v2 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """The Check command."""
 
@@ -8,8 +8,8 @@ import textwrap
 
 from craft_cli import BaseCommand, emit
 
-from subtitles.helpers import open_rar, open_zip, save_srt, SubItem, valid_filepath
-from subtitles.parsers import parse_subtitle
+from substool.helpers import open_rar, open_zip, save_srt, SubItem, valid_filepath
+from substool.parsers import parse_subtitle
 
 # lines longer than this (in chars) do not fit nicely in the screen
 MAX_TEXT_LENGTH = 90

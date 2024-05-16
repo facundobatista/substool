@@ -1,6 +1,6 @@
 # Copyright 2024 Facundo Batista
 # Licensed under the Apache v2 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """Main entry point of the modules."""
 
@@ -16,7 +16,7 @@ from craft_cli import (
     emit,
 )
 
-from subtitles import command_check, commands_rest
+from substool import command_check, commands_rest
 
 commands = [
     command_check.CheckCommand,
@@ -30,12 +30,12 @@ commands = [
 
 def main():
     """Handle the main entry point."""
-    emit.init(EmitterMode.BRIEF, "subtitles", "Starting the subtitles app.")
+    emit.init(EmitterMode.BRIEF, "substool", "Starting the substool app.")
     command_groups = [CommandGroup("Basic", commands)]
     summary = "Tool to handle and fix subtitles general issues."
 
     try:
-        dispatcher = Dispatcher("subtitles", command_groups, summary=summary)
+        dispatcher = Dispatcher("substool", command_groups, summary=summary)
         dispatcher.pre_parse_args(sys.argv[1:])
         dispatcher.load_command(None)
         dispatcher.run()

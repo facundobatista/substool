@@ -1,6 +1,6 @@
 # Copyright 2014-2024 Facundo Batista
 # Licensed under the Apache v2 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """Helpers for the different commands."""
 

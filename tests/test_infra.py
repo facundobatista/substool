@@ -1,6 +1,6 @@
 # Copyright 2024 Facundo Batista
 # Licensed under the GPL v3 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """Infrastructure tests."""
 
@@ -17,7 +17,7 @@ from flake8.api.legacy import get_style_guide
 def get_python_filepaths(*, roots=None, python_paths=None):
     """Retrieve paths of Python files."""
     python_paths = ["setup.py"]
-    for root in ["subtitles", "tests"]:
+    for root in ["substool", "tests"]:
         for dirpath, dirnames, filenames in os.walk(root):
             for filename in filenames:
                 if filename.endswith(".py"):
@@ -27,7 +27,7 @@ def get_python_filepaths(*, roots=None, python_paths=None):
 
 def test_codespell():
     """Verify all words are correctly spelled."""
-    cmd = ["codespell", "subtitles", "tests", "docs"]
+    cmd = ["codespell", "substool", "tests", "docs"]
     proc = subprocess.run(cmd, capture_output=True, text=True)
     report = [x.strip() for x in proc.stdout.split("\n")]
     indented_issues = [f" - {issue}" for issue in report if issue]

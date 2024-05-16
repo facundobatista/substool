@@ -1,6 +1,6 @@
 # Copyright 2014-2024 Facundo Batista
 # Licensed under the Apache v2 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """Tests for the _fix_toomanylines function."""
 
@@ -8,8 +8,8 @@ import textwrap
 
 import pytest
 
-from subtitles.helpers import SubItem
-from subtitles.command_check import _fix_toomanylines
+from substool.helpers import SubItem
+from substool.command_check import _fix_toomanylines
 
 
 def test_toomanylines_just_1():

@@ -1,6 +1,6 @@
 # Copyright 2014-2024 Facundo Batista
 # Licensed under the Apache v2 License
-# For further info, check https://github.com/facundobatista/subtitles
+# For further info, check https://github.com/facundobatista/substool
 
 """The generic small commands."""
 
@@ -9,8 +9,8 @@ import textwrap
 
 from craft_cli import BaseCommand, emit, ArgumentParsingError
 
-from subtitles.helpers import save_srt, SubItem, valid_filepath, time_sub2stamp, time_stamp2sub
-from subtitles.parsers import parse_subtitle
+from substool.helpers import save_srt, SubItem, valid_filepath, time_sub2stamp, time_stamp2sub
+from substool.parsers import parse_subtitle
 
 
 def _subtime(value):
@@ -52,7 +52,7 @@ class RescalePointsCommand(BaseCommand):
         Rescale a subtitles file using two points (id1 and id2) displacing
         them to the new times (time1 and time2).
 
-          e.g.:  subtitles rescale-points Movie.srt 4 43,5 168 1:02:15
+          e.g.:  substool rescale-points Movie.srt 4 43,5 168 1:02:15
 
         If id1 is 0, time1 is ignored and all is calculated against beginning.
     """)
@@ -104,7 +104,7 @@ class RescaleParamsCommand(BaseCommand):
     overview = textwrap.dedent("""
         Rescale a subtitles file using parameters delta and speed.
 
-          e.g.: subtitles rescale-params Movie.srt 2.3 1.0014
+          e.g.: substool rescale-params Movie.srt 2.3 1.0014
 
         These params are normally retrieved from rescale-points applied to a similar file.
     """)
@@ -130,7 +130,7 @@ class RescaleMimicCommand(BaseCommand):
     overview = textwrap.dedent("""
         Rescale a subtitles file using initial and final points from 'source' subtitles file.
 
-          e.g.: subtitles rescale-mimic subs-to-fix.srt source-subs.srt
+          e.g.: substool rescale-mimic subs-to-fix.srt source-subs.srt
     """)
 
     def fill_parser(self, parser):
@@ -165,8 +165,8 @@ class ShiftCommand(BaseCommand):
     overview = textwrap.dedent("""
         Shift the times in a subtitles file the specified seconds.
 
-          example: subtitles.py shift Movie.srt 3.22
-                   subtitles.py shift Movie.srt -2,1
+          example: substool shift Movie.srt 3.22
+                   substool shift Movie.srt -2,1
     """)
 
     def fill_parser(self, parser):
