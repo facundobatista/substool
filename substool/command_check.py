@@ -211,6 +211,9 @@ class CheckCommand(BaseCommand):
                 break
 
         for inpfile in to_process:
+            if "__MACOSX" in str(inpfile):
+                emit.message(f"Ignoring: {str(inpfile)}")
+                continue
             emit.message(f"Found: {str(inpfile)}")
 
             # encoding, fix it if needed
