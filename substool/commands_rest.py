@@ -135,8 +135,8 @@ class RescaleMimicCommand(BaseCommand):
 
     def fill_parser(self, parser):
         """Add own parameters to the general parser."""
-        parser.add_argument("tofix-filepath", type=valid_filepath, help="The subtitle to fix")
-        parser.add_argument("source-filepath", type=valid_filepath, help="The source subtitle")
+        parser.add_argument("tofix_filepath", type=valid_filepath, help="The subtitle to fix")
+        parser.add_argument("source_filepath", type=valid_filepath, help="The source subtitle")
 
     def run(self, parsed_args):
         """Run the command."""

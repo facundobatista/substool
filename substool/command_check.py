@@ -4,6 +4,7 @@
 
 """The Check command."""
 
+import re
 import textwrap
 
 from craft_cli import BaseCommand, emit
@@ -92,6 +93,15 @@ def _fix_times(subitems):
 
         new_to = item.tfrom + fixed_len
         newitems.append(SubItem(item.tfrom, new_to, item.text))
+    return newitems
+
+
+def _fix_weird_chars(subitems):
+    """Fix weird chars times."""
+    newitems = []
+    for item in subitems:
+        new_text = re.sub(r"\{\\i\d\}", "", item.text)
+        newitems.append(SubItem(item.tfrom, item.tto, new_text))
     return newitems
 
 
@@ -239,6 +249,13 @@ class CheckCommand(BaseCommand):
             newitems = _fix_toolong(subitems)
             if newitems == subitems:
                 emit.verbose("Lengths were ok")
+            subitems = newitems
+
+            # clean weird chars
+            emit.verbose("Cleaning weird hars...")
+            newitems = _fix_weird_chars(subitems)
+            if newitems == subitems:
+                emit.verbose("Chars were sane")
             subitems = newitems
 
             # clean spam
