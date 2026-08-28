@@ -1,4 +1,4 @@
-# Copyright 2014-2024 Facundo Batista
+# Copyright 2014-2026 Facundo Batista
 # Licensed under the Apache v2 License
 # For further info, check https://github.com/facundobatista/substool
 
@@ -70,12 +70,12 @@ def _open_multiple_encodings(inpfile):
 def _fix_times(subitems):
     """Fix subitems times."""
     newitems = []
-    for i, item in enumerate(subitems, 1):
+    for next_idx, item in enumerate(subitems, 1):
         # check if something needs to be fixed
         if item.tfrom >= item.tto:
-            emit.verbose(f"Times: fixing sub {i} (same or inverted times)")
-        elif i < len(subitems) and item.tto > subitems[i].tfrom:
-            emit.verbose(f"Times: fixing cross timings between {i} and {i + 1}")
+            emit.verbose(f"Times: fixing sub {next_idx} (same or inverted times)")
+        elif next_idx < len(subitems) and item.tto > subitems[next_idx].tfrom:
+            emit.verbose(f"Times: fixing cross timings between {next_idx} and {next_idx + 1}")
         else:
             newitems.append(item)
             continue
@@ -86,8 +86,8 @@ def _fix_times(subitems):
             fixed_len = 1
 
         # check that it doesn't overlap to the next one
-        if i + 1 < len(subitems):
-            next_from = subitems[i].tfrom
+        if next_idx < len(subitems):
+            next_from = subitems[next_idx].tfrom
             if item.tfrom + fixed_len > next_from:
                 fixed_len = next_from - item.tfrom
 

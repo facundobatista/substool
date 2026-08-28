@@ -78,5 +78,4 @@ def test_times_bug_second_to_last_item_not_clamped():
     s2 = SubItem(tfrom=10, tto=9, text=text)  # inverted, needs fixing
     s3 = SubItem(tfrom=10.5, tto=12, text="baz")
     new_items = _fix_times([s1, s2, s3])
-    # print("====== new", new_items)
     assert new_items[1].tto <= s3.tfrom
