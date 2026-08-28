@@ -1,1 +1,3 @@
-fades -r requirements-dev.txt -m pytest tests/
+#!/bin/bash
+
+fades -r requirements-dev.txt -m pytest "${@:-tests/}"
