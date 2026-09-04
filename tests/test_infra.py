@@ -1,4 +1,4 @@
-# Copyright 2024 Facundo Batista
+# Copyright 2024-2026 Facundo Batista
 # Licensed under the GPL v3 License
 # For further info, check https://github.com/facundobatista/substool
 
@@ -16,7 +16,7 @@ from flake8.api.legacy import get_style_guide
 
 def get_python_filepaths(*, roots=None, python_paths=None):
     """Retrieve paths of Python files."""
-    python_paths = ["setup.py"]
+    python_paths = []
     for root in ["substool", "tests"]:
         for dirpath, dirnames, filenames in os.walk(root):
             for filename in filenames:
