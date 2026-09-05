@@ -1,0 +1,30 @@
+# Steps
+
+Release early, release often. Don't be lazy.
+
+- change the version in the .toml
+
+- build the tarball
+
+    rm -rf dist/
+    fades -d build -m build
+
+- release in Github
+
+    xdg-open https://github.com/facundobatista/substools/tags
+
+    You should see all project tags, the top one should be this release.
+    In the menu at right of the tag tag you just created, choose 'create
+    release'. Copy the release notes into the release description.
+
+    Attach the `dist/` files
+
+    Click on "Publish release"
+
+
+- release to PyPI
+
+    fades -d twine -x twine upload --verbose dist/*
+
+
+- commit, push

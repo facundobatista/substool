@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "substool"
+version = "3.0"
+description = "Tool to handle and fix subtitles general issues."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Facundo Batista", email = "facundo@taniquetil.com.ar" },
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "craft-cli",
+]
+
+[project.urls]
+Homepage = "https://github.com/facundobatista/substool"
+
+[project.scripts]
+substool = "substool.main:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "codespell",
+    "flake8",
+    "pydocstyle",
+]
+
+[tool.setuptools.packages.find]
+include = ["substool*"]
